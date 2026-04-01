@@ -6,7 +6,7 @@ Accept: application/json
 
 ###
 
-POST {{TrackingApi_HostAddress}}/api/v1/login?email=change.me@example.com&password=CHANGE_ME
+POST {{TrackingApi_HostAddress}}/api/v1/login?username=change.me&password=CHANGE_ME
 Accept: application/json
 
 ###
@@ -16,9 +16,9 @@ Accept: application/json
 Content-Type: multipart/form-data; boundary=TrackingApiBoundary
 
 --TrackingApiBoundary
-Content-Disposition: form-data; name="email"
+Content-Disposition: form-data; name="username"
 
-change.me@example.com
+change.me
 --TrackingApiBoundary
 Content-Disposition: form-data; name="password"
 

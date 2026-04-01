@@ -15,14 +15,14 @@ public sealed class JwtTokenService
         _jwtOptions = jwtOptions;
     }
 
-    public TokenResult CreateToken(string email, string displayName)
+    public TokenResult CreateToken(string username, string displayName)
     {
         var options = _jwtOptions.Value;
         var expiresAtLocal = DateTime.Now.AddDays(options.TokenDays <= 0 ? 7 : options.TokenDays);
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.Email, email),
+            new Claim(ClaimTypes.NameIdentifier, username),
             new Claim(ClaimTypes.Name, displayName)
         };
 

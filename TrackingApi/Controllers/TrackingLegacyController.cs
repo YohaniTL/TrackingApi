@@ -17,7 +17,7 @@ namespace TrackingApi.Controllers;
 [Route("api/v1")]
 public sealed class TrackingLegacyController : ControllerBase
 {
-    private static readonly string[] LoginKeys = ["email", "password"];
+    private static readonly string[] LoginKeys = ["username", "password"];
     private static readonly string[] CodigoKeys = ["codigo"];
     private static readonly string[] CreateTrackingKeys =
     [
@@ -61,11 +61,11 @@ public sealed class TrackingLegacyController : ControllerBase
         }
 
         var configuredAuth = _authOptions.Value;
-        var email = values["email"]!;
+        var username = values["username"]!;
         var password = values["password"]!;
 
         var validCredentials =
-            string.Equals(email, configuredAuth.Email, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(username, configuredAuth.Username, StringComparison.OrdinalIgnoreCase) &&
             string.Equals(password, configuredAuth.Password, StringComparison.Ordinal);
 
         if (!validCredentials)
@@ -74,10 +74,10 @@ public sealed class TrackingLegacyController : ControllerBase
         }
 
         var displayName = string.IsNullOrWhiteSpace(configuredAuth.DisplayName)
-            ? email
+            ? username
             : configuredAuth.DisplayName;
 
-        var tokenResult = _jwtTokenService.CreateToken(email, displayName);
+        var tokenResult = _jwtTokenService.CreateToken(username, displayName);
 
         var response = LegacyResponses.Success(
             LegacyResponseMessages.LoginSuccess,
