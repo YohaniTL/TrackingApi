@@ -1,0 +1,60 @@
+@TrackingApi_HostAddress = http://localhost:5105
+@token =
+
+GET {{TrackingApi_HostAddress}}/health
+Accept: application/json
+
+###
+
+POST {{TrackingApi_HostAddress}}/api/v1/login?email=change.me@example.com&password=CHANGE_ME
+Accept: application/json
+
+###
+
+POST {{TrackingApi_HostAddress}}/api/v1/login
+Accept: application/json
+Content-Type: multipart/form-data; boundary=TrackingApiBoundary
+
+--TrackingApiBoundary
+Content-Disposition: form-data; name="email"
+
+change.me@example.com
+--TrackingApiBoundary
+Content-Disposition: form-data; name="password"
+
+CHANGE_ME
+--TrackingApiBoundary--
+
+###
+
+POST {{TrackingApi_HostAddress}}/api/v1/etiqueta
+Authorization: Bearer {{token}}
+Accept: application/json
+Content-Type: multipart/form-data; boundary=TrackingApiBoundary
+
+--TrackingApiBoundary
+Content-Disposition: form-data; name="codigo"
+
+191534
+--TrackingApiBoundary--
+
+###
+
+POST {{TrackingApi_HostAddress}}/api/v1/estado_pedido
+Authorization: Bearer {{token}}
+Accept: application/json
+Content-Type: multipart/form-data; boundary=TrackingApiBoundary
+
+--TrackingApiBoundary
+Content-Disposition: form-data; name="codigo"
+
+191534
+--TrackingApiBoundary--
+
+###
+
+POST {{TrackingApi_HostAddress}}/api/v1/orders_tracking?id_traking=1&cod_pedido=E00C2C6A-91BC-40F1-8855-C3EF685A0B38&id_delivery=990089831295&nombreArchivo=212379&codigoZebra=^XA^XZ&nombres=Pedro&apellidos=Castillo&commune_code=E90D244D-143E-4134-B0AB-E08551E0126E
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
